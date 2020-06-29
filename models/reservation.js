@@ -21,8 +21,15 @@ const ReservationSchema = new mongoose.Schema
         default: 'Kelseys'
     },
     dateAndTime: {
-        type: Date,
-        required: true 
+      type: Date,
+      required: true,
+      set: val => {
+        return new Date(val);
+      },
+      get: val => {
+        const date = val.toISOString();
+        return date.substring(0, date.length - 1);
+      }
     },
     quantityOfGuests: {
         type: Number,
