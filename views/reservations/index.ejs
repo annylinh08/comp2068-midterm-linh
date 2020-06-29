@@ -8,7 +8,9 @@
   <hr>
 
   <div class="content">
+    
     <% for (let reservation of reservations) { %>
+      <% if (authorized && (typeof reservation.user === 'undefined' || reservation.user.email === email)) { %>
       <div class="card my-5">
         <div class="card-header">
           <h5 class="card-title">
@@ -18,7 +20,7 @@
 
         <div class="card-body">
           <p class="card-text">
-            Your reservation is for <strong><%= (new Date(reservation.dateAndTime)).toLocaleString('en-CA') %></strong> for <%= reservation.quantityOfGuests > 1 ? 'person' : 'people' %>. Please be on time to avoid losing your seat.
+            Your reservation is for <strong><%= reservation.dateAndTime.toLocaleString('en-CA') %></strong> for <%= reservation.quantityOfGuests %>. Please be on time to avoid losing your seat.
           </p>
         </div>
 
@@ -34,6 +36,7 @@
           </form>
         </div>
       </div>
+    <% } %>
     <% } %>
   </div>
 </div>
